@@ -46,17 +46,9 @@ RUN mkdir /mcr-install && \
 
 # Installing oneflux from github
 RUN export GIT_SSL_NO_VERIFY=1 && \
-    git clone https://github.com/fluxnet/ONEFlux.git && \
+    git clone -b v0.6.0-rc-pinned-dependencies --single-branch https://github.com/owain-rutherford/ONEFlux.git && \
     cd ONEFlux && \
     make 
-
-# Override faulty requirements file, statsmodels is not
-# python 2.7 compatible as of 0.11
-# requirements should be capped at the latest
-# used version not only specifying a lower bound
-# version !!!
-RUN pip install -v numpy==1.15.4
-RUN pip install -v statsmodels==0.10
 
 # headless install
 # move into the ONEFlux directory
